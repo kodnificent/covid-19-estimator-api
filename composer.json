@@ -1,0 +1,40 @@
+{
+    "name": "kodnificent/covid-19-estimator-php-api",
+    "authors": [
+        {
+            "name": "Victor Mbamara (Kodnificent)",
+            "email": "mbamaravictor@gmail.com",
+            "homepage": "https://github.com/kodnificent",
+            "role": "Developer"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/kodnificent/covid-19-estimator-php"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": "~7.3.0",
+        "kodnificent/covid-19-estimator-php": "dev-build",
+        "nikic/fast-route": "^1.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.1"
+    },
+    "autoload": {
+        "files": [
+            "src/helpers.php"
+        ],
+        "psr-4": {
+            "Kodnificent\\Covid19EstimatorApi\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "kodnificent\\Covid19EstimatorApi\\Tests\\": "tests/"
+        }
+    }
+}
