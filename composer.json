@@ -18,7 +18,7 @@
     "prefer-stable": true,
     "require": {
         "php": "~7.3.0",
-        "kodnificent/covid-19-estimator-php": "dev-build",
+        "kodnificent/covid-19-estimator-php": "0.1.0",
         "nikic/fast-route": "^1.3"
     },
     "require-dev": {
