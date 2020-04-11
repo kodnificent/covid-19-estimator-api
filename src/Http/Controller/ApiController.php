@@ -2,9 +2,9 @@
 
 namespace Kodnificent\Covid19EstimatorApi\Http\Controller;
 
-use Kodnificent\Covid19EstimatorApi\Exception\HttpException;
 use Kodnificent\Covid19EstimatorApi\RequestLogger;
 use Kodnificent\Covid19ImpactEstimator\Covid19ImpactEstimator;
+use Spatie\ArrayToXml\ArrayToXml;
 
 class ApiController
 {
@@ -49,7 +49,7 @@ class ApiController
     }
 
     /**
-     * Handles json post requests to the application
+     * Handles json output
      * 
      * @return string
      */
@@ -59,18 +59,37 @@ class ApiController
         
         $data = validate($this->rules, $this->input_data);
 
-        $res = Covid19ImpactEstimator::estimate($data);
+        $estimate = Covid19ImpactEstimator::estimate($data);
+
+        $res = json_encode($estimate);
+
+        $this->logAction();
+
+        http_response_code(200);
+        
+        echo $res;
+    }
+
+    /**
+     * Handles xml output
+     * 
+     * @return string
+     */
+    public function xml()
+    {
+        header('Content-Type: application/xml');
+
+        $data = validate($this->rules, $this->input_data);
+
+        $estimate = Covid19ImpactEstimator::estimate($data);
+
+        $res = ArrayToXml::convert($estimate);
+
+        $this->logAction();
 
         http_response_code(200);
 
-        $this->logAction();
-        
-        echo json_encode($res);
-    }
-
-    public function xml()
-    {
-        //
+        echo $res;
     }
 
     /**
@@ -96,6 +115,11 @@ class ApiController
      */
     protected function logAction()
     {
-        return RequestLogger::log($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI'], http_response_code(), '48ms');
+        $method = $_SERVER['REQUEST_METHOD'];
+        $uri = $_SERVER['REQUEST_URI'];
+        $status = http_response_code();
+        $req_duration = ceil((microtime(true) - REQUEST_START) * 1000) . 'ms';
+
+        return RequestLogger::log($method, $uri, $status, $req_duration);
     }
 }
