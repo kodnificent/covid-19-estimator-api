@@ -4,6 +4,8 @@ namespace Kodnificent\Covid19EstimatorApi;
 
 use FastRoute\Dispatcher;
 use FastRoute\RouteCollector;
+use Kodnificent\Covid19EstimatorApi\Http\Exception\MethodNotAllowedException;
+use Kodnificent\Covid19EstimatorApi\Http\Exception\NotFoundException;
 
 use function FastRoute\simpleDispatcher;
 
@@ -28,7 +30,7 @@ class RouteDispatcher
      * 
      * @var string
      */
-    protected $controller_namespace = 'Kodnificent\\Covid19EstimatorApi\\Controller';
+    protected $controller_namespace = 'Kodnificent\\Covid19EstimatorApi\\Http\\Controller';
 
     /**
      * Create an instance of the route dispatcher
@@ -60,12 +62,11 @@ class RouteDispatcher
 
         switch ($route_info[0]) {
             case Dispatcher::NOT_FOUND:
-                echo 'not found';
+                throw new NotFoundException('Route not found');
             break;
             
             case Dispatcher::METHOD_NOT_ALLOWED:
-                // call method not allowed
-                echo 'method not allowed';
+                throw new MethodNotAllowedException('Method not allowed');
             break;
 
             case Dispatcher::FOUND:
