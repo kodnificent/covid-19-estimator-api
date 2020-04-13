@@ -32,11 +32,11 @@ class ApiController
     {
         $this->rules = [
             'region' => function($region, $fail){
-                if(!is_array($region)) return $fail('region must be an array');
+                //if(!is_array($region)) return $fail('region must be an array');
             },
 
             'periodType' => function($value, $fail){
-                if(is_null($value)) $fail('periodType is required');
+                //if(is_null($value)) $fail('periodType is required');
             },
 
             'timeToElapse' => function(){},
