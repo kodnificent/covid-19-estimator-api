@@ -137,7 +137,9 @@ class ApiController
         $method = $_SERVER['REQUEST_METHOD'];
         $uri = $_SERVER['REQUEST_URI'];
         $status = http_response_code();
-        $req_duration = ceil((microtime(true) - REQUEST_START) * 1000) . 'ms';
+        $time = ceil((microtime(true) - REQUEST_START) * 1000);
+        $time = $time < 10 ? '0'.$time : $time;
+        $req_duration = $time . 'ms';
 
         return RequestLogger::log($method, $uri, $status, $req_duration);
     }
