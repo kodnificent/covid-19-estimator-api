@@ -18,6 +18,6 @@ $dispatcher->dispatch();
     echo $e->getMessage();
 } catch(\Exception $e){
     http_response_code(500);
-
+    error_log($e->getMessage());
     echo $e->getMessage();
 }

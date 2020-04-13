@@ -12,15 +12,27 @@ use Kodnificent\Covid19EstimatorApi\Http\Exception\ValidationException;
 function validate($rules, $input){
     $data = [];
 
+    $errors = [];
+
     $fail = function($message){
-        throw new ValidationException($message);
+        return $message;
     };
 
     foreach($rules as $attr => $pass)
     {
         $value = array_key_exists($attr, $input) ? $input[$attr] : null;
-        $pass($value, $fail);
+        $error_msg = $pass($value, $fail);
+        if(!is_null($error_msg)){
+            $errors[$attr] = $error_msg;
+        }
         $data[$attr] = $value;
+    }
+
+    if(count($errors) > 0){
+        $data = [
+            "errors" => $errors
+        ];
+        throw new ValidationException(json_encode($data));
     }
 
     return $data;

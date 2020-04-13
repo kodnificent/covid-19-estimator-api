@@ -32,18 +32,35 @@ class ApiController
     {
         $this->rules = [
             'region' => function($region, $fail){
-                //if(!is_array($region)) return $fail('region must be an array');
+                if(!is_array($region)) return $fail('region must be an array');
+
+                if(!array_key_exists('name', $region)) return $fail('region name is required');
+                if(!array_key_exists('avgAge', $region)) return $fail('region average age is required');
+                if(!array_key_exists('avgDailyIncomeInUSD', $region)) return $fail('region avg daily income in usd is required');
+                if(!array_key_exists('avgDailyIncomePopulation', $region)) return $fail('region avg daily income population is required');
             },
 
             'periodType' => function($value, $fail){
-                //if(is_null($value)) $fail('periodType is required');
+                if(is_null($value)) return $fail('period type is required');
             },
 
-            'timeToElapse' => function(){},
-            'reportedCases' => function(){},
-            'population' => function(){},
-            'totalHospitalBeds' => function(){},
+            'timeToElapse' => function($value, $fail){
+                if(is_null($value)) return $fail('time to elapse is required');
+            },
+            'reportedCases' => function($value, $fail){
+                if(is_null($value)) return $fail('reported cases is required');
+            },
+            'population' => function($value, $fail){
+                if(is_null($value)) return $fail('population is required');
+            },
+            'totalHospitalBeds' => function($value, $fail){
+                if(is_null($value)) return $fail('total hospital beds is required');
+            },
         ];
+        
+        $raw_post = trim(file_get_contents("php://input"));
+
+        $_POST = count($_POST) !== 0 ? $_POST : json_decode($raw_post, true);
 
         $this->input_data = $_POST;
     }
@@ -99,7 +116,7 @@ class ApiController
      */
     public function logs()
     {
-        header('Content-Type: text/html;charset=UTF-8');
+        header('Content-Type: text/plain;charset=UTF-8');
 
         $logs = RequestLogger::getLogsAsString();
 

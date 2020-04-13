@@ -4,7 +4,6 @@ namespace Kodnificent\Covid19EstimatorApi\Tests\Feature;
 
 use GuzzleHttp\Client;
 use PHPUnit\Framework\TestCase;
-use SimpleXMLElement;
 
 class ApiTest extends TestCase
 {
@@ -35,20 +34,7 @@ class ApiTest extends TestCase
             'base_uri'  =>  $this->base_uri,
         ]);
 
-        $this->input_data = [ 
-            "region" =>
-            [
-                "name" => "Africa",
-                "avgAge" => 19.7,
-                "avgDailyIncomeInUSD" => 4,
-                "avgDailyIncomePopulation" => 0.73
-            ],
-            "periodType" => "days",
-            "timeToElapse" => 38,
-            "reportedCases" => 2747,
-            "population" => 92931687,
-            "totalHospitalBeds" => 678874
-        ];
+        $this->input_data = json_decode(file_get_contents(__DIR__.'/../test-data.json'), true);
     }
 
     protected function tearDown(): void
@@ -109,7 +95,7 @@ class ApiTest extends TestCase
         $this->assertEquals(200, $res->getStatusCode());
         
         $content_type = $res->getHeader('Content-Type')[0];
-        $this->assertMatchesRegularExpression("/text\/html/", $content_type);
+        $this->assertMatchesRegularExpression("/text\/plain/", $content_type);
     }
 
     public function testNotFoundStatus()

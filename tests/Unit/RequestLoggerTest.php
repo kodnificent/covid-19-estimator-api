@@ -34,7 +34,7 @@ class RequestLoggerTest extends TestCase
 
         $string = RequestLogger::getLogsAsString($this->storage_path);
 
-        $this->assertMatchesRegularExpression("/GET&emsp;&emsp;\/test-request-as-string&emsp;&emsp;404&emsp;&emsp;690ms<br \/>\r\n/", $string);
+        $this->assertMatchesRegularExpression("/GET\t\t\/test-request-as-string\t\t404\t\t690ms\r\n/", $string);
     }
 
     public function testLogRequest()

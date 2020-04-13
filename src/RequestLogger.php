@@ -95,10 +95,10 @@ class RequestLogger
             $uri = $log['uri'];
             $status = $log['status'];
             $time = $log['time'];
-            $string .= "$method&emsp;&emsp;$uri&emsp;&emsp;$status&emsp;&emsp;$time\r\n";
+            $string .= "$method\t\t$uri\t\t$status\t\t$time\r\n";
         }
     
-        return nl2br($string);
+        return $string;
     }
 
     /**

@@ -12,7 +12,7 @@ class HelpersTest extends TestCase
     {
         $rules = [
             'prop' => function($value, $fail){
-                if(is_null($value)) $fail('prop is required');
+                if(is_null($value)) return $fail('prop is required');
             }
         ];
         $input = [];
