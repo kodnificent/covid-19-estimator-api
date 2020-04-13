@@ -30,11 +30,13 @@ class RequestLoggerTest extends TestCase
 
     public function testGetRequestLogsAsString()
     {
-        RequestLogger::log('GET', '/test-request-as-string', 404, '690ms', 100, $this->storage_path);
+        $log_pattern = "/^(GET|POST)\s+\/api\/v1\/on-covid-19(\/json|\/xml|\/logs)?\s+\d{3}\s+\d{2,}ms$/";
+
+        RequestLogger::log('POST', '/api/v1/on-covid-19/json', 404, '690ms', 100, $this->storage_path);
 
         $string = RequestLogger::getLogsAsString($this->storage_path);
 
-        $this->assertMatchesRegularExpression("/GET\t\t\/test-request-as-string\t\t404\t\t690ms\r\n/", $string);
+        $this->assertMatchesRegularExpression($log_pattern, $string);
     }
 
     public function testLogRequest()

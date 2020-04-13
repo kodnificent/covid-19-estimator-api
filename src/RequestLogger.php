@@ -90,12 +90,13 @@ class RequestLogger
     
         $string = '';
     
-        foreach ($logs as $log) {
+        foreach ($logs as $index => $log) {
             $method = $log['method'];
             $uri = $log['uri'];
             $status = $log['status'];
             $time = $log['time'];
-            $string .= "$method\t\t$uri\t\t$status\t\t$time\r\n";
+            $line_break = $index === count($logs) - 1 ? '' : "\n";
+            $string .= "$method\t\t$uri\t\t$status\t\t$time".$line_break;
         }
     
         return $string;

@@ -90,12 +90,17 @@ class ApiTest extends TestCase
 
     public function testLogEndpoint()
     {
+        $log_pattern = "/^(GET|POST)\s+\/api\/v1\/on-covid-19(\/json|\/xml|\/logs)?\s+\d{3}\s+\d{2,}ms$/";
+
         $res = $this->client->get('logs');
 
         $this->assertEquals(200, $res->getStatusCode());
         
         $content_type = $res->getHeader('Content-Type')[0];
         $this->assertMatchesRegularExpression("/text\/plain/", $content_type);
+
+        $content = explode("\n", $res->getBody());
+        $this->assertMatchesRegularExpression($log_pattern, $content[0]);
     }
 
     public function testNotFoundStatus()
