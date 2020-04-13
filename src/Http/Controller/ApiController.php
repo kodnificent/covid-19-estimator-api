@@ -103,6 +103,8 @@ class ApiController
 
         $logs = RequestLogger::getLogsAsString();
 
+        $this->logAction();
+
         http_response_code(200);
 
         echo $logs;
