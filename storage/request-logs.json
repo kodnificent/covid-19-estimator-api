@@ -1,22 +1,4 @@
 {
     "logs": [
-        {
-            "method": "GET",
-            "uri": "\/api\/v1\/on-covid-19\/logs",
-            "status": 200,
-            "time": "66ms"
-        },
-        {
-            "method": "POST",
-            "uri": "\/api\/v1\/on-covid-19\/xml",
-            "status": 200,
-            "time": "194ms"
-        },
-        {
-            "method": "POST",
-            "uri": "\/api\/v1\/on-covid-19\/json",
-            "status": 200,
-            "time": "182ms"
-        }
     ]
 }
