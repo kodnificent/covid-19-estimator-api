@@ -1,0 +1,28 @@
+{
+    "logs": [
+        {
+            "method": "GET",
+            "uri": "\/third-request",
+            "status": 404,
+            "time": "690ms"
+        },
+        {
+            "method": "POST",
+            "uri": "\/second-request",
+            "status": 404,
+            "time": "690ms"
+        },
+        {
+            "method": "GET",
+            "uri": "\/hello-world",
+            "status": 404,
+            "time": "690ms"
+        },
+        {
+            "method": "GET",
+            "uri": "\/test-request-as-string",
+            "status": 404,
+            "time": "690ms"
+        }
+    ]
+}
