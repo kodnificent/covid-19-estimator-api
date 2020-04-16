@@ -62,14 +62,31 @@ class RouteDispatcher
 
         switch ($route_info[0]) {
             case Dispatcher::NOT_FOUND:
+                header("Access-Control-Allow-Origin: *");
+                header("Access-Control-Max-Age: 86400");
+                header("Access-Control-Allow-Headers: Content-Type, x-requested-with");
                 throw new NotFoundException('Route not found');
             break;
             
             case Dispatcher::METHOD_NOT_ALLOWED:
-                throw new MethodNotAllowedException('Method not allowed');
+                $method = $_SERVER['REQUEST_METHOD'];
+                $allowed_methods = implode(', ', $route_info[1]);
+                if($method === 'OPTIONS'){
+                    header("Access-Control-Allow-Origin: *");
+                    header("Access-Control-Max-Age: 86400");
+                    header("Access-Control-Allow-Headers: Content-Type, x-requested-with");
+                    header("Access-Control-Allow-Methods: $allowed_methods, OPTIONS");
+                    return;
+                }
+                header("Access-control-allow-methods: $allowed_methods");
+                
+                throw new MethodNotAllowedException("$method method not allowed. Allowed method(s) are $allowed_methods");
             break;
 
             case Dispatcher::FOUND:
+                header("Access-Control-Allow-Origin: *");
+                header("Access-Control-Max-Age: 86400");
+                header("Access-Control-Allow-Headers: Content-Type, x-requested-with");
 
                 $vars = $route_info[2];
 

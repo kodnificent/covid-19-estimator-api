@@ -9,7 +9,7 @@ use Kodnificent\Covid19EstimatorApi\Http\Exception\ValidationException;
  * @param array $input
  * @return array $data
  */
-function validate($rules, $input){
+function validate(array $rules, array $input){
     $data = [];
 
     $errors = [];

@@ -34,27 +34,27 @@ class ApiController
             'region' => function($region, $fail){
                 if(!is_array($region)) return $fail('region must be an array');
 
-                if(!array_key_exists('name', $region)) return $fail('region name is required');
-                if(!array_key_exists('avgAge', $region)) return $fail('region average age is required');
-                if(!array_key_exists('avgDailyIncomeInUSD', $region)) return $fail('region avg daily income in usd is required');
-                if(!array_key_exists('avgDailyIncomePopulation', $region)) return $fail('region avg daily income population is required');
+                if(!array_key_exists('name', $region) || $region['name'] == '') return $fail('region name is required');
+                if(!array_key_exists('avgAge', $region) || $region['avgAge'] == '') return $fail('region average age is required');
+                if(!array_key_exists('avgDailyIncomeInUSD', $region) || $region['avgDailyIncomeInUSD'] == '') return $fail('region avg daily income in usd is required');
+                if(!array_key_exists('avgDailyIncomePopulation', $region) || $region['avgDailyIncomePopulation'] == '') return $fail('region avg daily income population is required');
             },
 
             'periodType' => function($value, $fail){
-                if(is_null($value)) return $fail('period type is required');
+                if($value == "") return $fail('period type is required');
             },
 
             'timeToElapse' => function($value, $fail){
-                if(is_null($value)) return $fail('time to elapse is required');
+                if($value == "") return $fail('time to elapse is required');
             },
             'reportedCases' => function($value, $fail){
-                if(is_null($value)) return $fail('reported cases is required');
+                if($value == "") return $fail('reported cases is required');
             },
             'population' => function($value, $fail){
-                if(is_null($value)) return $fail('population is required');
+                if($value == "") return $fail('population is required');
             },
             'totalHospitalBeds' => function($value, $fail){
-                if(is_null($value)) return $fail('total hospital beds is required');
+                if($value == "") return $fail('total hospital beds is required');
             },
         ];
         
@@ -62,7 +62,7 @@ class ApiController
 
         $_POST = count($_POST) !== 0 ? $_POST : json_decode($raw_post, true);
 
-        $this->input_data = $_POST;
+        $this->input_data = (array) $_POST;
     }
 
     /**

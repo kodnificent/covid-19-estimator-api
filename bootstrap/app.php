@@ -3,10 +3,6 @@
 use Kodnificent\Covid19EstimatorApi\Http\Exception\HttpException;
 use Kodnificent\Covid19EstimatorApi\RouteDispatcher;
 
-// set appropriate api headers
-header("Access-control-allow-origin: *");
-header("Access-control-allow-methods: GET, POST, OPTIONS");
-
 try {
 // dispatch routes to their handlers
 $dispatcher = new RouteDispatcher();
